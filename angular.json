@@ -1,0 +1,171 @@
+{
+  "version": 1,
+  "projects": {
+    "ikes": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/ikes",
+      "sourceRoot": "apps/ikes/src",
+      "prefix": "stores6",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/ikes",
+            "index": "apps/ikes/src/index.html",
+            "main": "apps/ikes/src/main.ts",
+            "polyfills": "apps/ikes/src/polyfills.ts",
+            "tsConfig": "apps/ikes/tsconfig.app.json",
+            "aot": true,
+            "assets": ["apps/ikes/src/favicon.ico", "apps/ikes/src/assets"],
+            "styles": ["apps/ikes/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/ikes/src/environments/environment.ts",
+                  "with": "apps/ikes/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "ikes:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ikes:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ikes:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/ikes/tsconfig.app.json",
+              "apps/ikes/tsconfig.spec.json",
+              "apps/ikes/tsconfig.editor.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/ikes/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/ikes/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "ikes-e2e": {
+      "root": "apps/ikes-e2e",
+      "sourceRoot": "apps/ikes-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/ikes-e2e/cypress.json",
+            "tsConfig": "apps/ikes-e2e/tsconfig.e2e.json",
+            "devServerTarget": "ikes:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ikes:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/ikes-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/ikes-e2e/**/*"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/workspace": {
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/cypress": {
+      "cypress-project": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/node": {
+      "application": {
+        "linter": "tslint"
+      },
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/nest": {
+      "application": {
+        "linter": "tslint"
+      },
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/express": {
+      "application": {
+        "linter": "tslint"
+      },
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  },
+  "defaultProject": "ikes"
+}
