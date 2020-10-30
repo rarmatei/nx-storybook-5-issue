@@ -18,7 +18,13 @@
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e",
+          "build-storybook"
+        ]
       }
     }
   },
@@ -28,7 +34,27 @@
     },
     "ikes-e2e": {
       "tags": [],
-      "implicitDependencies": ["ikes"]
+      "implicitDependencies": [
+        "ikes"
+      ]
+    },
+    "test": {
+      "tags": []
+    },
+    "test-e2e": {
+      "tags": [],
+      "implicitDependencies": [
+        "test"
+      ]
+    },
+    "test2": {
+      "tags": []
+    },
+    "test2-e2e": {
+      "tags": [],
+      "implicitDependencies": [
+        "test2"
+      ]
     }
   }
 }
